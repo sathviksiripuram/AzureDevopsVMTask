@@ -358,16 +358,3 @@ resource "azurerm_lb_nat_rule" "NATRuleA" {
   ]
 }
 
-// Here we are creating the Public DNS Zone
-resource "azurerm_dns_zone" "public_zone" {
-  name                = "AzureTask.com"
-  resource_group_name = azurerm_resource_group.example.name
-  
-}
-resource "azurerm_dns_a_record" "load_balancer_record" {
-  name                = "www"
-  zone_name           = azurerm_dns_zone.public_zone.name
-  resource_group_name = azurerm_resource_group.example.name
-  ttl                 = 360
-  records             = [azurerm_public_ip.load_ip.ip_address]
-}
